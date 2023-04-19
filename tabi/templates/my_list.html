@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}マイページ{% endblock %}
+{% block contents %}
+<section class="back">  
+    <div class="mypage">
+        <h1>{{ user.username }}のMyPage</h1>
+            <h2>あなたの旅</h2>   
+      {% for tabi in my_list %}
+      <div class="my-list">
+        <div class="selist">
+        {% if tabi.thumbnail %}
+        <img src="{{ tabi.thumbnail.url }}" alt="サムネイル">
+        {% else %}
+        <img class="card-img" src="{% static 'img/noimg.png' %}" alt="写真">
+        {% endif %}
+        <div class="right">
+            <p class="title"><a href="{% url 'tabi:tabi_detail' tabi.pk %}">{{tabi.title}}</a></p>
+            <div class="tag">
+            関連：
+            {% for tag in tabi.tags.all %}
+            <p>{{tag}},</p>
+            {% endfor %}
+            </div>
+            <p class="text">{{tabi.text}}</p>
+            <p class="">by:{{tabi.writer}}</p>
+        </div>
+        </div>
+     </div>
+     {% empty %}
+            <li>まだ旅がありません。</li>
+     {% endfor  %}
+    </div>
+</section>
+{% endblock %}

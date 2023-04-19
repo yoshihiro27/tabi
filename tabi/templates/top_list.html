@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<h2>トップページ</h2>
+{% block title %}モデルコースのSNS/旅ログ{% endblock %}
+
+{% block contents %}
+<div class="toppage">
+   <section class="topbody">
+      <div class="sidebar-top">
+         <h3>関連サービス</h3>
+         <li><a href="{% url 'tabi:pop_list' %}">人気の旅</a></li><!--いいね数-->
+         <li><a href="{% url 'tabi:day_list' %}">デイリーランキング</a></li><!--日にち-->
+         <li><a href="{% url 'tabi:week_list' %}">旅の週間ランキング</a></li><!--週-->
+         <li><a href="{% url 'tabi:new_list' %}">最新の旅</a></li><!--新しい旅-->
+         <li><a href="{% url 'tabi:fam_list' %}">話題の旅</a></li><!--閲覧数-->
+      </div>
+      <div class="center-top"><!--週間ランキング上位５個、写真とタイトル-->
+         <h3>今週のトピック</h3>
+            <div class="rank">
+               {% for tabi in object_list %}
+               <article class="card">
+               <p class="forloop-number">{{forloop.counter}}</p>
+                     <a class="card-link" href="{% url 'tabi:tabi_detail' tabi.pk %}">
+                           <div class="card-art">
+                           {% if tabi.thumbnail %}
+                            <img class="card-img" src="{{ tabi.thumbnail.url }}" alt="サムネイル">
+                           {% else %}
+                           <img class="card-img" src="{% static 'img/noimg.png' %}" alt="写真">
+                           {% endif %}
+                           <div class="card-info">
+                              <h5 class="card-headline">{{tabi.title}}</h5>
+                              <p class="card-disc">by{{tabi.writer}}</p>
+                           </div>
+                           </div>
+                     </a>
+                  </div>
+                  </article>
+               {% endfor %}
+            </div>
+      </div>
+   </section>
+<section class="bottom">
+   <div class="bottom-top">
+   <div class="bottombar"><!--下側-->
+         <h3>人気の観光地</h3>
+      <div class="up-top">
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/hokkaido.jpg' %}">
+                  <p>北海道</p>
+               </a>
+         </div>
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/tokyosample1.jpg' %}">
+                  <p>東京</p>
+               </a>
+         </div>
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/osaka.jpg' %}">
+                  <p>大阪</p>
+               </a>
+         </div>
+      </div>
+      <div class="down-top">
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/kyoto.jpg' %}">
+                  <p>京都</p>
+               </a>
+         </div>
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/fukuoka.jpg' %}">
+                  <p>福岡</p>
+               </a>
+         </div>
+         <div class="bottom-img">
+               <a href="">
+                  <img src="{% static 'img/okinawa.jpg' %}">
+                  <p>沖縄</p>
+               </a>
+         </div>
+      </div>
+   </div>
+</div>
+</section>
+</div>
+<section class="back">
+   <div class="search-list">
+     <div class="selist">
+     <div class="right">
+         <p class="title"><a href="{% url 'tabi:tabi_ot' %}">お問合せ</a></p>
+     </div>
+     </div>
+  </div>
+</section>
+{% endblock %}

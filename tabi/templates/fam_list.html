@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}話題の旅{% endblock %}
+{% block contents %}
+<div class="toppage">
+    <section class="topbody">
+       <div class="sidebar-top">
+          <h3>関連サービス</h3>
+          <li><a href="{% url 'tabi:pop_list' %}">人気の旅</a></li><!--いいね数-->
+          <li><a href="{% url 'tabi:day_list' %}">旅のデイリーランキング</a></li><!--日にち-->
+          <li><a href="{% url 'tabi:week_list' %}">旅の週間ランキング</a></li><!--週-->
+          <li><a href="{% url 'tabi:new_list' %}">最新の旅</a></li><!--新しい旅-->
+          <li><a href="{% url 'tabi:fam_list' %}">話題の旅</a></li><!--閲覧数-->
+       </div>
+       <div class="center-list"><!--週間ランキング上位５個、写真とタイトル-->
+          <h3>話題の旅</h3>
+          {% for tabi in object_list %}
+          <div class="rklist">
+            <p class="forloop-number">{{forloop.counter}}</p>
+            {% if tabi.thumbnail %}
+            <img class="week-img" src="{{ tabi.thumbnail.url }}" alt="サムネイル">
+            {% else %}
+            <img class="card-img" src="{% static 'img/noimg.png' %}" alt="写真">
+            {% endif %}
+          <div class="right">
+              <p class="title"><a href="{% url 'tabi:tabi_detail' tabi.pk %}">{{tabi.title}}</a></p>
+              <div class="tag">
+               <p>
+               タグ:
+               {% for tag in tabi.tags.all %}
+               {{tag}},
+               {% endfor %}
+               
+              </div>
+              <p class="text">{{tabi.text}}</p>
+              <p class="">by:{{tabi.writer}}</p>
+          </div>
+          </div>
+          {% endfor %}
+       </div>
+    </section>
+{% endblock %}
+
+<span>
+    <div class="list">
+    {% for tabi in object_list %}
+    <div class="list-img">
+       <img src="{{ tabi.thumbnail.url }}" alt="サムネイル">
+       <p><a href="{% url 'tabi:tabi_detail' tabi.pk %}">{{tabi.title}}</a></p>
+       <p>{{tabi.text}}</p>
+    </div>
+    {% endfor %}
+    </div>
+ </span>

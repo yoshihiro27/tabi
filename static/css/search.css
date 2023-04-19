@@ -1,0 +1,102 @@
+.search {
+  background-color: rgb(247, 247, 236);
+  }
+
+  .back {
+    background-color: rgb(247, 247, 236);
+    }
+
+.search-box {
+  margin-top: 6rem;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+.right a {
+  color: green;
+}
+
+  .search-list {
+    margin-top:6rem ;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    background-color: white;
+    box-sizing: border-box;
+    border: 2px solid lightgreen;
+  }
+
+  .my-list {
+    margin-top:2rem ;
+    margin-left: auto;
+    margin-right: auto;
+    width: 950px;
+    background-color: white;
+    box-sizing: border-box;
+    border: 2px solid lightgreen;
+  }
+  .my-list img {
+    display: flex;
+    width: 300px;
+    height: 200px;
+    border: solid 1px lightgreen;
+    margin:5px 5px 5px 5px;
+  }
+  
+  .search-list img {
+    display: flex;
+    width: 300px;
+    height: 200px;
+    border: solid 1px lightgreen;
+    margin:5px 5px 5px 5px;
+  }
+  
+  .selist {
+    display: flex;
+  }
+  
+  .selist .right {
+    margin: 0 0 0 20px;
+    padding: 0;
+  }
+  
+  .selist .title {
+    margin: 10px 0 0;
+    color: green;
+    padding: 0;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .selist .text {
+    margin: 10px 0 0;
+    padding: 0;
+    width: 570px;
+    height: 50px;
+    color: rgb(19, 150, 19);
+    background-color: rgb(247, 247, 236);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .selist .tag {
+    margin-top: 10px;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+  
+
+.page-number {
+  margin-top: 2rem;
+}
+
+.page {
+  display: flex;
+}
+
+.page a {
+  margin: 0px 10px 0px 10px;
+}

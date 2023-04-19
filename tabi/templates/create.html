@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投稿ページ</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/datetimepicker/css/daterangepicker.css' %}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <!-- BEGIN CSS for this page -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+    <!-- END CSS for this page -->
+
+    <style>
+        /* FORM ROWS */
+        .form-row {
+            overflow: hidden;
+            padding: 10px;
+            font-size: 13px;
+            border-bottom: 1px solid #eee;
+            display: table-row;
+            margin: 0;
+        }
+        .form-row img, .form-row input {
+            vertical-align: middle;
+        }
+        .form-row label input[type="checkbox"] {
+            margin-top: 0;
+            vertical-align: 0;
+        }
+        form .form-row p {
+            padding-left: 0;
+        }
+        .empty-form {
+            display: none;
+        }
+    </style>
+
+    <!-- Django jquery -->
+    <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    <!-- Django jquery init -->
+    <script src="{% static 'admin/js/jquery.init.js' %}"></script>
+    <!-- Django RelatedObjectLookups -->
+    <script src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+
+    <script src="{% static 'js/modernizr.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/detect.js' %}"></script>
+    <script src="{% static 'js/fastclick.js' %}"></script>
+    <script src="{% static 'js/jquery.blockUI.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
+
+    <!-- Plugin js -->
+    <script src="{% static 'plugins/datetimepicker/js/moment.min.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/locale/ja.js"></script>
+    <script src="{% static 'plugins/datetimepicker/js/daterangepicker.js' %}"></script>
+
+    <!-- prepopulate.js -->
+    <script src="{% static 'js/prepopulate.js' %}"></script>
+    <!-- inlines.js -->
+    <script src="{% static 'js/inlines.js' %}"></script>
+</head>
+<body>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header">
+                    <h3>投稿する</h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        {% for field in form %}
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    {{ field.errors }}
+                                </div>
+                            </div><!-- /.col -->
+                        {% endfor %}
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="js-inline-admin-formset inline-group" id="{{ formset.prefix }}-group" data-inline-type="tabular"
+                                 data-inline-formset='{"options": {"deleteText": "削除", "prefix": "{{ formset.prefix }}","addText": "追加"}, "name": "#{{ formset.prefix }}"}'>
+                                <div class="tabular inline-related">
+                                    {{ formset.management_form }}
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            {% for field in formset.empty_form.visible_fields %}
+                                                <th nowrap{% if field.field.required %} class="required"{% endif %}>{{ field.label|capfirst }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for field in formset %}
+                                            <tr class="form-row" id="{{ formset.prefix }}-{{ forloop.counter0 }}">
+                                                {% for f in field.visible_fields %}
+                                                    <td nowrap class="field-{{ f.name }}">
+                                                        {% if forloop.first %}
+                                                            {% for hidden_field in field.hidden_fields %}
+                                                                {{ hidden_field }}
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        {% if f.is_readonly %}
+                                                            <p>{{ f.contents }}</p>
+                                                        {% else %}
+                                                            {{ f }}
+                                                            {{ f.errors }}
+                                                            </td>
+                                                        {% endif %}
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                        <tr class="form-row empty-form" id="{{ formset.prefix }}-empty">
+                                            {% for field in formset.empty_form.visible_fields %}
+                                                <td nowrap class="field-{{ field.name }}">
+                                                    {{ field }}
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.tabular -->
+                            </div><!-- /.js-inline-admin-formset -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" name="create" class="btn btn-primary"><span class="btn-label"><i class="fa fa-fw fa-pencil"></i></span>投稿</button>
+                </div><!-- /.card-body -->
+            </div><!-- ./card -->
+        </form>
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+</body>
+</html>

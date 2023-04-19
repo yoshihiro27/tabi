@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}旅の検索ページ{% endblock %}
+
+{% block contents %}
+<section class="back">
+<div class="search>
+  <div class="search-box">
+    <form method="get">
+      <input type="search" value="{{ request.GET.query }}" 
+             name="query" type="text" 
+             placeholder=" 県名・地方名など">
+      <button>検索する</button>
+    </form>
+  </div>
+
+
+  {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            "{{ message }}" を含む検索結果:
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+  {% for tabi in post_list %}
+  <div class="search-list">
+    <div class="selist">
+    {% if tabi.thumbnail %}
+    <img src="{{ tabi.thumbnail.url }}" alt="サムネイル">
+    {% else %}
+    <img class="card-img" src="{% static 'img/noimg.png' %}" alt="写真">
+    {% endif %}
+    <div class="right">
+        <p class="title"><a href="{% url 'tabi:tabi_detail' tabi.pk %}">{{tabi.title}}</a></p>
+        <div class="tag">
+        関連：
+        {% for tag in tabi.tags.all %}
+        <p>{{tag}},</p>
+        {% endfor %}
+        </div>
+        <p class="text">{{tabi.text}}</p>
+        <p class="">by:{{tabi.writer}}</p>
+    </div>
+    </div>
+ </div>
+  {% endfor %}
+
+    {% if is_paginated %}
+    <ul class="page">
+      {% if page_obj.has_previous %}
+        <div class="page-number">
+          <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">Previous</a>
+        </div>
+      {% endif %}
+      {% for num in paginator.page_range %}
+        {% if page_obj.number == num %}
+        <div id="page-number">
+            {{ num }}
+        </div>
+        {% else %}
+        <div id="page-number">
+          <a href="?page={{ num }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ num }}</a>
+        </div>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <div id="page-number">
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">次のページ</a>
+      </div>
+      {% endif %}
+    </ul>
+    {% endif %}
+</div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,39 @@
+.skj-date {
+    margin-left: 40px;
+    font-size: 18px;
+}
+
+.skj-time {
+    display: flex;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.forloop-number {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.skj {
+    background-color: rgb(247, 247, 236);
+  }
+
+.container-skj {
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    background-color: white;
+    box-sizing: border-box;
+    border: 2px solid lightgreen;
+  }
+
+.sk {
+    display: flex;
+    margin-left: 40px;
+}
+
+.skj-time p {
+    margin-left: 20px;
+}
