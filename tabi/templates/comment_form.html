@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block contents %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container mt-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 <form action="" method="POST">
     {{ form.non_field_errors }}
     {% for field in form %}
@@ -18,4 +21,7 @@
     {% csrf_token %}
     <button class="button is-primary" type="submit">送信</button>
 </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

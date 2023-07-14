@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 app_name = 'tabi'
 
@@ -31,5 +32,11 @@ urlpatterns = [
     path('follow-home/<int:pk>', views.FollowHome.as_view(), name='follow-home'),
     path('follow-detail/<int:pk>', views.FollowDetail.as_view(), name='follow-detail'),
     path('follow-list/', views.FollowList.as_view(), name='follow-list'),
-    path('comment/create/<int:pk>/', views.CommentCreate.as_view(), name='comment_create')
+    path('comment/create/<int:pk>/', views.CommentCreate.as_view(), name='comment_create'),
+    path('hokkaido/',views.HokkaidoListView.as_view(),name='hokkaido_list'),
+    path('tokyo/',views.TokyoListView.as_view(),name='tokyo_list'),
+    path('osaka/',views.OsakaListView.as_view(),name='osaka_list'),
+    path('kyoto/',views.KyotoListView.as_view(),name='kyoto_list'),
+    path('fukuoka/',views.FukuokaListView.as_view(),name='fukuoka_list'),
+    path('okinawa/',views.OkinawaListView.as_view(),name='okinawa_list'),
 ]

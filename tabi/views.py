@@ -25,25 +25,26 @@ def tabi_ot(request):
 class TopListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'top_list.html'
+    paginate_by = 36
 
     def get_queryset(self):
-        tabi = Tabi.objects.order_by('looked').reverse().filter()[:2]
+        tabi = Tabi.objects.order_by('looked').reverse().filter()
         return tabi
 
 
 class MypageList(LoginRequiredMixin, generic.TemplateView):
     template_name = 'my_list.html'
-    pagenate_by = 10
+    pagenate_by = 18
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['my_list'] = Tabi.objects.filter(writer=self.request.user).order_by('created_at')
         return context
 
-class MysaveList(generic.ListView):
+class MysaveList(LoginRequiredMixin,generic.ListView):
     template_name = 'mysave.html'
     model = Tabi,CustomUser
-    paginate_by = 10
+    paginate_by = 18
     def get_queryset(self):
         user=self.request.user
         queryset = user.favorite.all()
@@ -52,7 +53,7 @@ class MysaveList(generic.ListView):
 class UserDetail(generic.DetailView):
     template_name = 'user_detail.html'
     model = Tabi,CustomUser
-    paginate_by = 10
+    paginate_by = 18
     def get_queryset(self):
         queryset = Tabi.objects.filter(field='writer').order_by('created_at')
         return queryset
@@ -161,7 +162,7 @@ class TabiUpdateView(generic.UpdateView):
 class PopListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'pop_list.html'
-    paginate_by = 10
+    paginate_by = 48
 
     def get_queryset(self):
         tabi = Tabi.objects.order_by('like').reverse()
@@ -170,7 +171,7 @@ class PopListView(generic.ListView):
 class DayListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'day_list.html'
-    paginate_by = 10
+    paginate_by = 48
 
     def get_queryset(self):
         tabi = Tabi.objects.order_by('daylooked').reverse()
@@ -179,7 +180,7 @@ class DayListView(generic.ListView):
 class WeekListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'week_list.html'
-    paginate_by = 10
+    paginate_by = 48
 
     def get_queryset(self):
         tabi = Tabi.objects.order_by('weeklylooked').reverse()
@@ -188,7 +189,7 @@ class WeekListView(generic.ListView):
 class NewListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'new_list.html'
-    paginate_by = 10
+    paginate_by = 48
 
     def get_queryset(self):
         tabi = Tabi.objects.order_by('created_at').reverse()
@@ -197,16 +198,71 @@ class NewListView(generic.ListView):
 class FamListView(generic.ListView):
     model = Tabi,TabiDate
     template_name = 'fam_list.html'
-    paginate_by = 10
+    paginate_by = 48
 
     def get_queryset(self):
         tabi = Tabi.objects.order_by('looked').reverse()
+        return tabi
+    
+    
+class HokkaidoListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'hokkaido.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='北海道')
+        return tabi
+    
+class TokyoListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'tokyo.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='東京')
+        return tabi
+    
+class OsakaListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'osaka.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='大阪')
+        return tabi
+    
+class KyotoListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'kyoto.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='京都')
+        return tabi
+    
+class FukuokaListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'fukuoka.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='福岡')
+        return tabi
+    
+class OkinawaListView(generic.ListView):
+    model = Tabi,TabiDate
+    template_name = 'okinawa.html'
+    paginate_by = 48
+
+    def get_queryset(self):
+        tabi = Tabi.objects.filter(title='沖縄')
         return tabi
 
 
 class SearchView(generic.ListView):
     context_object_name = 'post_list'
-    paginate_by = 10
+    paginate_by = 48
     template_name = 'search.html'
     model = Tabi
 

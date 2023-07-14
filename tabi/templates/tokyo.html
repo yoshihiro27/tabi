@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}東京の旅{% endblock %}
+{% block contents %}
+<body>
+   <main>
+      <div class="album py-5 bg-body-tertiary">
+         <div class="container mt-5">
+            <h2>東京の旅</h2>
+           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for tabi in object_list %}
+             <div class="col">
+               <div class="card shadow-sm">
+                 {% if tabi.thumbnail %}
+                 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ tabi.thumbnail.url }}"><title>{{tabi.title}}</title><rect fill="#55595c" width="100%" height="100%" /><text fill="#eceeef" dy=".3em" x="50%" y="50%"></text></img>
+                 {% else %}
+                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><title>カード画像のキャプション</title><rect fill="#55595c" width="100%" height="100%" /><text fill="#eceeef" dy=".3em" x="50%" y="50%">サムネイル</text></svg>
+                 {% endif %}
+                 <div class="card-body">
+                  <p class="card-text">{{tabi.title}}</p>
+                   <p class="card-text">{{tabi.text}}</p>
+                   <div class="d-flex justify-content-between align-items-center">
+                     <div class="btn-group">
+                        <a href="{% url 'tabi:tabi_detail' tabi.pk %}">
+                       <button type="button" class="btn btn-sm btn-outline-secondary">見る</button>
+                        </a>
+                     </div>
+                     <small class="text-body-secondary">{{tabi.created_at}}</small>
+                     <small class="text-body-secondary">{{tabi.writer}}</small>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             {% endfor %}
+
+
+   {% if is_paginated %}
+    <ul class="page">
+      {% if page_obj.has_previous %}
+        <div class="page-number">
+          <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">前のページ</a>
+        </div>
+      {% endif %}
+      {% for num in paginator.page_range %}
+        {% if page_obj.number == num %}
+        <div id="page-number">
+            {{ num }}
+        </div>
+        {% else %}
+        <div id="page-number">
+          <a href="?page={{ num }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ num }}</a>
+        </div>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <div id="page-number">
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">次のページ</a>
+      </div>
+      {% endif %}
+    </ul>
+    {% endif %}
+           </div>
+         </div>
+   </main>
+
+   <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+   <!-- Section: Social media -->
+   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+ 
+   </section>
+   <!-- Section: Social media -->
+ 
+   <!-- Section: Links  -->
+   <section class="">
+     <div class="container text-center text-md-start mt-5">
+       <!-- Grid row -->
+       <div class="row mt-3">
+ 
+ 
+         <!-- Grid column -->
+         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+           <!-- Links -->
+           <h6 class="text-uppercase fw-bold mb-4">
+             関連サービス
+           </h6>
+           <p>
+             <a href="{% url 'tabi:pop_list' %}" class="text-reset">人気の旅</a>
+           </p>
+           <p>
+            <a href="{% url 'tabi:day_list' %}" class="text-reset">デイリーアクセス数順</a>
+          </p>
+          <p>
+            <a href="{% url 'tabi:week_list' %}" class="text-reset">週間アクセス数順</a>
+          </p>
+          <p>
+            <a href="{% url 'tabi:new_list' %}" class="text-reset">最近の旅</a>
+          </p>
+          <p>
+            <a href="{% url 'tabi:fam_list' %}" class="text-reset">話題の旅</a>
+          </p>
+         </div>
+
+         <!-- Grid column -->
+ 
+         <!-- Grid column -->
+         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+           <!-- Links -->
+           <h6 class="text-uppercase fw-bold mb-4">
+             人気の観光地
+           </h6>
+           <p>
+             <a href="{% url 'tabi:hokkaido_list' %}" class="text-reset">北海道</a>
+           </p>
+           <p>
+             <a href="{% url 'tabi:tokyo_list' %}" class="text-reset">東京都</a>
+           </p>
+           <p>
+             <a href="{% url 'tabi:osaka_list' %}" class="text-reset">大阪府</a>
+           </p>
+           <p>
+             <a href="{% url 'tabi:kyoto_list' %}" class="text-reset">京都府</a>
+           </p>
+           <p>
+            <a href="{% url 'tabi:fukuoka_list' %}" class="text-reset">福岡県</a>
+          </p>
+          <p>
+            <a href="{% url 'tabi:okinawa_list' %}" class="text-reset">沖縄県</a>
+          </p>
+         </div>
+         <!-- Grid column -->
+ 
+         <!-- Grid column -->
+         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+           <!-- Links -->
+           <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+           <p>
+             <i class="fas fa-envelope me-3"></i>
+             tabi.log.form@gmail.com
+           </p>
+         </div>
+         <!-- Grid column -->
+       </div>
+       <!-- Grid row -->
+     </div>
+   </section>
+   <!-- Section: Links  -->
+ 
+
+ </body>
+ 
+{% endblock %}

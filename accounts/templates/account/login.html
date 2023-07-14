@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
+{% load socialaccount %}
+{% load static %}
+
 {% block title %}Log In | Private Diary{% endblock %}
 
 {% block active_login %}active{% endblock %}
 
 {% block contents %}
-<div class="container">
-    <div class="row">
+<div class="container mt-5">
+    <div class="container mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="my-div-style">
             <h1>Log In</h1>
             <form method="post" action="{% url 'account_login' %}">
@@ -20,8 +24,13 @@
 
                 <button class="btn btn-primary" type="submit">ログイン</button>
                 <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">パスワードを忘れましたか？</a></p>
+                <div class="mt-3">
+                    <!-- 以下のボタンを追加 -->
+                    <a href="{% provider_login_url 'google'%}?next=/" class="btn btn-primary">Googleアカウントでログイン</a>
+                </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
