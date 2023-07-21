@@ -15,8 +15,8 @@ def validate_max_size(value):
 
 # Create your models here.
 class Tabi(models.Model):
-    title = models.CharField('タイトル(32文字まで)',max_length=32)
-    text = models.TextField('この旅の簡単な説明文、目標など',max_length=120) #説明文
+    title = models.CharField('タイトル(32文字まで)',max_length=20)
+    text = models.TextField('この旅の簡単な説明文、目標など',max_length=60) #説明文
     money = models.TextField('一人当たりの予算',max_length=20)
     date = models.CharField('日数 (例)二泊三日、日帰り...',max_length=8) #二泊三日とか
     thumbnail = models.ImageField('サムネイル写真',null=True, blank=True,validators=[validate_max_size])

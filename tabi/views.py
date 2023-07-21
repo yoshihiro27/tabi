@@ -50,7 +50,7 @@ class MysaveList(LoginRequiredMixin,generic.ListView):
         queryset = user.favorite.all()
         return queryset
     
-class UserDetail(generic.DetailView):
+class UserDetail(LoginRequiredMixin,generic.DetailView):
     template_name = 'user_detail.html'
     model = Tabi,CustomUser
     paginate_by = 18
@@ -69,13 +69,13 @@ def FavoritePost(request, pk):
 class CommentCreate(generic.ListView):
     pass
 
-class TabiDelete(generic.DeleteView):
+class TabiDelete(LoginRequiredMixin,generic.DeleteView):
     model = Tabi
     template_name = 'delete.html'
     success_url = reverse_lazy('tabi:top_list')
 
 
-class TabiDetail(generic.DetailView):
+class TabiDetail(LoginRequiredMixin,generic.DetailView):
     model = Tabi
     template_name = 'detail.html'
     
@@ -93,7 +93,7 @@ class TabiDetail(generic.DetailView):
         context=self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
-class TabiCreateView(generic.CreateView):
+class TabiCreateView(LoginRequiredMixin,generic.CreateView):
     form_class = TabiCreateForm
     template_name = 'create.html'
     success_url = reverse_lazy('tabi:top_list')
@@ -126,7 +126,7 @@ class TabiCreateView(generic.CreateView):
     
 
 
-class TabiUpdateView(generic.UpdateView):
+class TabiUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = Tabi
     form_class = TabiCreateForm
     template_name = 'update.html'
@@ -159,7 +159,7 @@ class TabiUpdateView(generic.UpdateView):
             return self.render_to_response(ctx)
 
 
-class PopListView(generic.ListView):
+class PopListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'pop_list.html'
     paginate_by = 48
@@ -168,7 +168,7 @@ class PopListView(generic.ListView):
         tabi = Tabi.objects.order_by('like').reverse()
         return tabi
 
-class DayListView(generic.ListView):
+class DayListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'day_list.html'
     paginate_by = 48
@@ -177,7 +177,7 @@ class DayListView(generic.ListView):
         tabi = Tabi.objects.order_by('daylooked').reverse()
         return tabi
 
-class WeekListView(generic.ListView):
+class WeekListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'week_list.html'
     paginate_by = 48
@@ -186,7 +186,7 @@ class WeekListView(generic.ListView):
         tabi = Tabi.objects.order_by('weeklylooked').reverse()
         return tabi
 
-class NewListView(generic.ListView):
+class NewListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'new_list.html'
     paginate_by = 48
@@ -195,7 +195,7 @@ class NewListView(generic.ListView):
         tabi = Tabi.objects.order_by('created_at').reverse()
         return tabi
 
-class FamListView(generic.ListView):
+class FamListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'fam_list.html'
     paginate_by = 48
@@ -205,7 +205,7 @@ class FamListView(generic.ListView):
         return tabi
     
     
-class HokkaidoListView(generic.ListView):
+class HokkaidoListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'hokkaido.html'
     paginate_by = 48
@@ -214,7 +214,7 @@ class HokkaidoListView(generic.ListView):
         tabi = Tabi.objects.filter(title='北海道')
         return tabi
     
-class TokyoListView(generic.ListView):
+class TokyoListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'tokyo.html'
     paginate_by = 48
@@ -223,7 +223,7 @@ class TokyoListView(generic.ListView):
         tabi = Tabi.objects.filter(title='東京')
         return tabi
     
-class OsakaListView(generic.ListView):
+class OsakaListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'osaka.html'
     paginate_by = 48
@@ -232,7 +232,7 @@ class OsakaListView(generic.ListView):
         tabi = Tabi.objects.filter(title='大阪')
         return tabi
     
-class KyotoListView(generic.ListView):
+class KyotoListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'kyoto.html'
     paginate_by = 48
@@ -241,7 +241,7 @@ class KyotoListView(generic.ListView):
         tabi = Tabi.objects.filter(title='京都')
         return tabi
     
-class FukuokaListView(generic.ListView):
+class FukuokaListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'fukuoka.html'
     paginate_by = 48
@@ -250,7 +250,7 @@ class FukuokaListView(generic.ListView):
         tabi = Tabi.objects.filter(title='福岡')
         return tabi
     
-class OkinawaListView(generic.ListView):
+class OkinawaListView(LoginRequiredMixin,generic.ListView):
     model = Tabi,TabiDate
     template_name = 'okinawa.html'
     paginate_by = 48
@@ -260,7 +260,7 @@ class OkinawaListView(generic.ListView):
         return tabi
 
 
-class SearchView(generic.ListView):
+class SearchView(LoginRequiredMixin,generic.ListView):
     context_object_name = 'post_list'
     paginate_by = 48
     template_name = 'search.html'
@@ -441,7 +441,7 @@ class FollowList(LoginRequiredMixin, generic.ListView):
           return context
       
       
-class CommentCreate(generic.CreateView):
+class CommentCreate(LoginRequiredMixin,generic.CreateView):
     """
     記事へのコメント作成ビュー
     ページは表示されないが、コメントを作成するために使用

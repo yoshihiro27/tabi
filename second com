@@ -1,0 +1,62 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is up to date with 'origin/main'.
+#
+# Changes to be committed:
+#	modified:   .DS_Store
+#	modified:   accounts/templates/account/login.html
+#	modified:   accounts/templates/account/signup.html
+#	modified:   db.sqlite3
+#	new file:   media/The_Scream.jpg
+#	new file:   media/The_Scream_8oDXZlX.jpg
+#	new file:   media/gurahu-2-1_RhsgsLH.jpg
+#	new file:   media/gurahu-2-1_UBuarpH.jpg
+#	new file:   media/gurahu2.png
+#	new file:   media/gurahu3.jpg
+#	new file:   media/gurahu3_Gw3cH8q.jpg
+#	new file:   "media/\345\256\237\351\250\223\345\206\231\347\234\2371.JPG"
+#	modified:   mysite/settings.py
+#	modified:   mysite/urls.py
+#	new file:   tabi/.DS_Store
+#	modified:   tabi/models.py
+#	modified:   tabi/templates/base.html
+#	modified:   tabi/templates/comment_form.html
+#	modified:   tabi/templates/day_list.html
+#	modified:   tabi/templates/detail.html
+#	modified:   tabi/templates/fam_list.html
+#	modified:   tabi/templates/follow_list.html
+#	new file:   tabi/templates/fukuoka.html
+#	new file:   tabi/templates/hokkaido.html
+#	new file:   tabi/templates/kyoto.html
+#	modified:   tabi/templates/my_list.html
+#	modified:   tabi/templates/mysave.html
+#	modified:   tabi/templates/new_list.html
+#	new file:   tabi/templates/okinawa.html
+#	new file:   tabi/templates/osaka.html
+#	modified:   tabi/templates/pop_list.html
+#	modified:   tabi/templates/search.html
+#	new file:   tabi/templates/tokyo.html
+#	modified:   tabi/templates/top_list.html
+#	modified:   tabi/templates/week_list.html
+#	modified:   tabi/urls.py
+#	modified:   tabi/views.py
+#
+a
+a
+
+
+
+
+f
+
+
+exit
+
+a
+
+a
+q1!
+exit
