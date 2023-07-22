@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-v4m*g-fp-d!(uuelfc2&k)@18m%#bp19+y*tl@+9g19putevd3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -73,8 +73,20 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
-#DEFAULT_FORM_EMAIL = os.environ.get('FROM_EMAIL')
-DEFAULT_FROM_EMAIL = 'tabi.log.form@gmail.com'
+DEFAULT_FORM_EMAIL = os.environ.get('FROM_EMAIL')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tabi.log.form@gmail.com'
+EMAIL_HOST_PASSWORD = 'oviksymdwejqapzc'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#↑はテスト用仮送信
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 MIDDLEWARE = [
@@ -114,12 +126,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_database',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
 
 # Password validation
@@ -163,6 +188,9 @@ STATICFILES_DIRS = (
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_ROOT = '/usr/share/nginx/html/static'
+MEDIA_ROOT = '/usr/share/nginx/html/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
